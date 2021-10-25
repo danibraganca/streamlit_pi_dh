@@ -1,5 +1,5 @@
 matplotlib==3.3.4
-mysql_connector_python==0.3.1
+mysql-connector==2.2.9
 numpy==1.20.1
 pandas==1.2.4
 streamlit==1.1.0
