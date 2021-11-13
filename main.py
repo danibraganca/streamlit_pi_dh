@@ -64,13 +64,13 @@ def main():
         Esta informação tem impacto no abastecimento da região metropolitana de Salvador.
         """
             
-        #st.header('Time')
-        #st.text('Alessandro Esequiel Moreira de Lima')
-        #st.text('Dan Scremin Lau')
-        #st.text('Daniela Ribeiro Bragança Silva')
-        #st.text('Emerson Massaiti Haro')
-        #st.text('Pedro Vitor Lima Cavalcante')
-        #st.text('Renata de Souza Silva')
+        st.header('Time')
+        st.text('Alessandro Esequiel Moreira de Lima')
+        st.text('Dan Scremin Lau')
+        st.text('Daniela Ribeiro Bragança Silva')
+        st.text('Emerson Massaiti Haro')
+        st.text('Pedro Vitor Lima Cavalcante')
+        st.text('Renata de Souza Silva')
         
     elif page == "Previsão":
         st.header("Previsão dos níveis do reservatório")
