@@ -35,7 +35,7 @@ def get_data_geral():
         print(str(e))
         
 
-#get_data_geral()
+get_data_geral()
 
 def main():
 
