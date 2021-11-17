@@ -11,18 +11,16 @@ hash_funcs={'_thread.RLock' : lambda _: None,
                 'builtins.weakref': lambda _: None,
                 'builtins.dict' : lambda _:None}
 
-@st.cache(allow_output_mutation = True, hash_funcs=hash_funcs)
+@st.cache(allow_output_mutation=True, hash_funcs=hash_funcs)
 def init_connection():
     return connection.connect(**st.secrets["mysql"])
 
 result_dataFrame = pd.DataFrame()
 
-@st.cache(allow_output_mutation = True, hash_funcs=hash_funcs)
+@st.cache(allow_output_mutation=True, hash_funcs=hash_funcs)
 def get_data_geral():
     try:
         mydb = init_connection()
-        #query = "Select * from Resumo order by DataCalendario limit 100"
-        #query = "Select DataCalendario, ARIMA_Predict, prev_nivel from Predicao order by DataCalendario"
         query = "Select CAST(Predicao.`index` AS DATE) AS DataCalendario, prev_nivel AS `Nível previsto`, Volume AS `Volume real` from  Predicao left join Niveis on Niveis.`Data` = Predicao.`index` order by Predicao.`index`"
         
 
@@ -48,14 +46,11 @@ def main():
     )
 
     if page == "Homepage":
-        #latest_iteration = st.empty()
         bar = st.progress(0)
 
         for i in range(100):
-          #latest_iteration.text(f'Iteration {i+1}')
           bar.progress(i + 1)
           time.sleep(0.001)
-
             
         """
         # Previsão de níveis hidrológicos - Projeto Integrador Digital House
@@ -102,6 +97,5 @@ def graficoGeral():
     result = get_data_geral()
     st.line_chart(filtrar_datas(result))
     
-  
 if __name__ == "__main__":
     main()
