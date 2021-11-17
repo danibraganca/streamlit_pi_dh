@@ -11,13 +11,13 @@ hash_funcs={'_thread.RLock' : lambda _: None,
                 'builtins.weakref': lambda _: None,
                 'builtins.dict' : lambda _:None}
 
-@st.cache(allow_output_mutation=True, hash_funcs=hash_funcs)
+@st.cache(allow_output_mutation = True, hash_funcs=hash_funcs)
 def init_connection():
     return connection.connect(**st.secrets["mysql"])
 
 result_dataFrame = pd.DataFrame()
 
-@st.cache(allow_output_mutation=True, hash_funcs=hash_funcs)
+@st.cache(allow_output_mutation = True, hash_funcs=hash_funcs)
 def get_data_geral():
     try:
         mydb = init_connection()
@@ -56,7 +56,6 @@ def main():
           bar.progress(i + 1)
           time.sleep(0.001)
 
-        #'...and now we\'re done!'
             
         """
         # Previsão de níveis hidrológicos - Projeto Integrador Digital House
@@ -64,27 +63,17 @@ def main():
         Esta informação tem impacto no abastecimento da região metropolitana de Salvador.
         """
             
-        #st.header('Time')
-        #st.text('Alessandro Esequiel Moreira de Lima')
-        #st.text('Dan Scremin Lau')
-        #st.text('Daniela Ribeiro Bragança Silva')
-        #st.text('Emerson Massaiti Haro')
-        #st.text('Pedro Vitor Lima Cavalcante')
-        #st.text('Renata de Souza Silva')
+        st.header('Time')
+        st.text('Alessandro Esequiel Moreira de Lima')
+        st.text('Dan Scremin Lau')
+        st.text('Daniela Ribeiro Bragança Silva')
+        st.text('Emerson Massaiti Haro')
+        st.text('Pedro Vitor Lima Cavalcante')
+        st.text('Renata de Souza Silva')
         
     elif page == "Previsão":
         st.header("Previsão dos níveis do reservatório")
         graficoGeral()
-
-#    elif page == "Chuvas":
-#        horizontal_bar()
-
-#    elif page == "Níveis":
-#        graficoNiveis()
-
-#    elif page == "Previsão":
-#        st.header("Previsão")
-#        histogram()
 
 
 def filtrar_datas(df):
@@ -113,13 +102,6 @@ def graficoGeral():
     result = get_data_geral()
     st.line_chart(filtrar_datas(result))
     
-    
-def graficoNiveis():
-    result = get_data_niveis()
-    result_dataFrame = result.set_index('DataCalendario')
-    st.line_chart(result_dataFrame)
-    
-
   
 if __name__ == "__main__":
     main()
