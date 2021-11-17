@@ -21,7 +21,9 @@ result_dataFrame = pd.DataFrame()
 def get_data_geral():
     try:
         mydb = init_connection()
-        query = "Select CAST(Predicao.`index` AS DATE) AS DataCalendario, prev_nivel AS `Nível previsto`, Volume AS `Volume real` from  Predicao left join Niveis on Niveis.`Data` = Predicao.`index` order by Predicao.`index`"
+        #query = "Select * from Resumo order by DataCalendario limit 100"
+        #query = "Select DataCalendario, ARIMA_Predict, prev_nivel from Predicao order by DataCalendario"
+        query = "Select CAST(Predicao.`index` AS DATE) AS DataCalendario, prev_nivel AS `Nível previsto`, Volume AS `Volume real` from  Predicao order by Predicao.`index`"
         
 
         result_dataFrame = pd.read_sql(query, mydb)
@@ -46,11 +48,15 @@ def main():
     )
 
     if page == "Homepage":
+        #latest_iteration = st.empty()
         bar = st.progress(0)
 
         for i in range(100):
+          #latest_iteration.text(f'Iteration {i+1}')
           bar.progress(i + 1)
           time.sleep(0.001)
+
+        #'...and now we\'re done!'
             
         """
         # Previsão de níveis hidrológicos - Projeto Integrador Digital House
@@ -58,17 +64,27 @@ def main():
         Esta informação tem impacto no abastecimento da região metropolitana de Salvador.
         """
             
-        st.header('Time')
-        st.text('Alessandro Esequiel Moreira de Lima')
-        st.text('Dan Scremin Lau')
-        st.text('Daniela Ribeiro Bragança Silva')
-        st.text('Emerson Massaiti Haro')
-        st.text('Pedro Vitor Lima Cavalcante')
-        st.text('Renata de Souza Silva')
+        #st.header('Time')
+        #st.text('Alessandro Esequiel Moreira de Lima')
+        #st.text('Dan Scremin Lau')
+        #st.text('Daniela Ribeiro Bragança Silva')
+        #st.text('Emerson Massaiti Haro')
+        #st.text('Pedro Vitor Lima Cavalcante')
+        #st.text('Renata de Souza Silva')
         
     elif page == "Previsão":
         st.header("Previsão dos níveis do reservatório")
         graficoGeral()
+
+#    elif page == "Chuvas":
+#        horizontal_bar()
+
+#    elif page == "Níveis":
+#        graficoNiveis()
+
+#    elif page == "Previsão":
+#        st.header("Previsão")
+#        histogram()
 
 
 def filtrar_datas(df):
@@ -97,5 +113,13 @@ def graficoGeral():
     result = get_data_geral()
     st.line_chart(filtrar_datas(result))
     
+    
+def graficoNiveis():
+    result = get_data_niveis()
+    result_dataFrame = result.set_index('DataCalendario')
+    st.line_chart(result_dataFrame)
+    
+
+  
 if __name__ == "__main__":
     main()
